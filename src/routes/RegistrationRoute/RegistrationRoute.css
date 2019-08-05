@@ -2,7 +2,7 @@
 
 .regRoute > p {
   max-width: 50%;
-  margin-right: 25%;
-  margin-left: 25%;
+  min-width: 320px;
+  margin: 0 auto;
   line-height: 150%;
 }
