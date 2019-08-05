@@ -1,0 +1,16 @@
+/* color: #4100fb */
+/* links color: #2A1ECE */
+
+.Button {
+  border-radius: 5px;
+  width: 40%;
+  min-height: 25px;
+  background: #4100fb;
+  color: #ffffff;
+  font-size: 1em;
+  transition: background 0.2s ease;
+}
+
+.Button:hover {
+  background: #00FBD0;
+}

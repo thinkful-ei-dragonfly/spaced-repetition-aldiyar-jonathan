@@ -1,0 +1,44 @@
+
+.App {
+  margin-left: 15%;
+  margin-right: 15%;
+  display: grid;
+  max-width: 1000px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.header {
+  grid-column-start: 1;
+  grid-column-end: 13;
+}
+
+main {
+  grid-column-start: 3;
+  grid-column-end: 11;
+  text-align: center;
+
+}
+
+
+
+/* @media screen and (max-width: 500px) {
+  .App {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  main {
+    width: 100%;
+  }
+  
+}
+
+@media screen and (max-width: 800px) {
+  .App {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  main {
+    width: 100%
+  }
+} */

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './RegistrationRoute.css'
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm'
 
 class RegistrationRoute extends Component {
@@ -15,7 +16,7 @@ class RegistrationRoute extends Component {
 
   render() {
     return (
-      <section>
+      <section className='regRoute'>
         <p>
           Practice learning a language with the spaced reptition revision technique.
         </p>
