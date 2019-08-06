@@ -15,28 +15,43 @@ import './App.css'
 export default class App extends Component {
   state = {
     userLanguage: {},
-    userWords: [], 
+    userWords: [],
+    nextWord: {},
     hasError: false
   }
 
   componentDidMount() {
-    fetch(`${config.API_ENDPOINT}/language`, {
-      headers: {
-        'authorization': `Bearer ${TokenService.getAuthToken()}`,
-      }
-    })
-      .then(languageRes => {
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/language`, {
+        headers: {
+          'authorization': `Bearer ${TokenService.getAuthToken()}`,
+        }
+      }),
+      fetch(`${config.API_ENDPOINT}/language/head`, {
+        headers: {
+          'authorization': `Bearer ${TokenService.getAuthToken()}`,
+        }
+      })
+    ])
+      .then(([languageRes,nextWordRes]) => {
         if (!languageRes.ok) {
           return languageRes.json()
-            .then(e => Promise.reject(e));
+            .then(e => Promise.reject(e));   
         }
-        return languageRes.json();
+        if(!nextWordRes.ok) {
+          return nextWordRes.json()
+          .then(e => Promise.reject(e))
+        }
+        return Promise.all([
+          languageRes.json(),
+          nextWordRes.json()
+        ]);
       })
-      .then(response => {
-        console.log(response);
+      .then(([response, nextWord]) => {
         this.setState({
           userLanguage: response.language,
-          userWords: response.words
+          userWords: response.words,
+          nextWord
         })
       })
       .catch(error => {
@@ -62,11 +77,11 @@ export default class App extends Component {
             <PrivateRoute
               exact
               path={'/'}
-              component={() => <DashboardRoute state={this.state}/>}
+              component={() => <DashboardRoute state={this.state} />}
             />
             <PrivateRoute
               path={'/learn'}
-              component={() => <LearningRoute state={this.state}/>}
+              component={() => <LearningRoute state={this.state} />}
             />
             <PublicOnlyRoute
               path={'/register'}
