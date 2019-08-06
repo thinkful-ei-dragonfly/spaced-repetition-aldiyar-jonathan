@@ -19,7 +19,7 @@ h1 > a {
   
 }
 
-span {
+.nav > span {
   color: #f3d9d9;
   padding-right: 10%;
   line-height: 150%;

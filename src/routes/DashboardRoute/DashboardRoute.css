@@ -1,0 +1,27 @@
+.words {
+  width: 100%;
+}
+
+.wordComponent {
+  display: inline-block;
+  width: 22.5%;
+  margin: 1.25%;
+  line-height: 150%;
+}
+
+.word-title {
+
+}
+
+.word-counters {
+  font-size: 70%;
+}
+
+.word-counter > span {
+  color: black;
+}
+.wordComponent > li {
+  list-style-type: none;
+  border: 1px solid black;
+  border-radius: 5px;
+}
