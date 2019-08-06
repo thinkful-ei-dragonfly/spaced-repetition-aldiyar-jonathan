@@ -21,42 +21,48 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    Promise.all([
-      fetch(`${config.API_ENDPOINT}/language`, {
-        headers: {
-          'authorization': `Bearer ${TokenService.getAuthToken()}`,
-        }
-      }),
-      fetch(`${config.API_ENDPOINT}/language/head`, {
-        headers: {
-          'authorization': `Bearer ${TokenService.getAuthToken()}`,
-        }
-      })
-    ])
-      .then(([languageRes,nextWordRes]) => {
+    fetch(`${config.API_ENDPOINT}/language`, {
+      headers: {
+        'authorization': `Bearer ${TokenService.getAuthToken()}`,
+      }
+    })
+      .then(languageRes => {
         if (!languageRes.ok) {
           return languageRes.json()
-            .then(e => Promise.reject(e));   
+            .then(e => Promise.reject(e));
         }
-        if(!nextWordRes.ok) {
-          return nextWordRes.json()
-          .then(e => Promise.reject(e))
-        }
-        return Promise.all([
-          languageRes.json(),
-          nextWordRes.json()
-        ]);
+        return languageRes.json();
       })
-      .then(([response, nextWord]) => {
+      .then(response => {
         this.setState({
           userLanguage: response.language,
-          userWords: response.words,
-          nextWord
+          userWords: response.words
         })
       })
       .catch(error => {
         console.error(error);
       });
+      
+      fetch(`${config.API_ENDPOINT}/language/head`, {
+        headers: {
+          'authorization': `Bearer ${TokenService.getAuthToken()}`,
+        }
+      })
+      .then(nextWordRes => {
+        if(!nextWordRes.ok) {
+          return nextWordRes.json()
+          .then(e => Promise.reject(e))
+        }
+        return nextWordRes.json()
+      })
+      .then(nextWord => {
+        this.setState({
+          nextWord
+        })
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 
   static getDerivedStateFromError(error) {

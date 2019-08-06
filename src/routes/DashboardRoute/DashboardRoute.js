@@ -1,45 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import config from '../../config';
-import TokenService from '../../services/token-service';
 import Button from '../../components/Button/Button';
 import './DashboardRoute.css';
 
 class DashboardRoute extends Component {
-  // state = {
-  //   userLanguage: {},
-  //   userWords: []
-  // }
-
-  // componentDidMount() {
-  //   fetch(`${config.API_ENDPOINT}/language`, {
-  //     headers: {
-  //       'authorization': `Bearer ${TokenService.getAuthToken()}`,
-  //     }
-  //   })
-  //     .then(languageRes => {
-  //       if (!languageRes.ok) {
-  //         return languageRes.json()
-  //           .then(e => Promise.reject(e));
-  //       }
-  //       return languageRes.json();
-  //     })
-  //     .then(response => {
-  //       console.log(response);
-  //       this.setState({
-  //         userLanguage: response.language,
-  //         userWords: response.words
-  //       })
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }
-
-
-
-
-  
   render() {
     let options = this.props.state.userWords.map((word, index) => {
       return (
