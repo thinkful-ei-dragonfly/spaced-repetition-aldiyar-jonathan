@@ -1,0 +1,5 @@
+
+
+***** CHECK COMPONENT DID MOUNT IN APP.JS so it populates info on first load
+  ***CONTEXT??***
+

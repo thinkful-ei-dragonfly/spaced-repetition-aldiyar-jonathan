@@ -19,7 +19,7 @@ export default class LearningForm extends React.Component {
         'authorization': `Bearer ${TokenService.getAuthToken()}`,
         'content-type': 'application/json',
       },
-      body: JSON.stringify({ answer: this.state.value}),
+      body: JSON.stringify({ guess: this.state.value}),
   })
   .then(res =>
     (!res.ok)
