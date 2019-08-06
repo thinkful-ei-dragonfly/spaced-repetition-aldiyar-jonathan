@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
+import config from '../../config'
+import TokenService from '../../services/token-service'
 import Header from '../Header/Header'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute'
@@ -11,7 +13,36 @@ import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute'
 import './App.css'
 
 export default class App extends Component {
-  state = { hasError: false }
+  state = {
+    userLanguage: {},
+    userWords: [], 
+    hasError: false
+  }
+
+  componentDidMount() {
+    fetch(`${config.API_ENDPOINT}/language`, {
+      headers: {
+        'authorization': `Bearer ${TokenService.getAuthToken()}`,
+      }
+    })
+      .then(languageRes => {
+        if (!languageRes.ok) {
+          return languageRes.json()
+            .then(e => Promise.reject(e));
+        }
+        return languageRes.json();
+      })
+      .then(response => {
+        console.log(response);
+        this.setState({
+          userLanguage: response.language,
+          userWords: response.words
+        })
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   static getDerivedStateFromError(error) {
     console.error(error)
@@ -22,7 +53,7 @@ export default class App extends Component {
     const { hasError } = this.state
     return (
       <div className='App'>
-        <Header className='header'/>
+        <Header className='header' />
         <main>
           {hasError && (
             <p>There was an error! Oh no!</p>
@@ -31,11 +62,11 @@ export default class App extends Component {
             <PrivateRoute
               exact
               path={'/'}
-              component={DashboardRoute}
+              component={() => <DashboardRoute state={this.state}/>}
             />
             <PrivateRoute
               path={'/learn'}
-              component={LearningRoute}
+              component={() => <LearningRoute state={this.state}/>}
             />
             <PublicOnlyRoute
               path={'/register'}

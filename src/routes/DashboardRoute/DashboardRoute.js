@@ -6,42 +6,42 @@ import Button from '../../components/Button/Button';
 import './DashboardRoute.css';
 
 class DashboardRoute extends Component {
-  state = {
-    userLanguage: {},
-    userWords: []
-  }
+  // state = {
+  //   userLanguage: {},
+  //   userWords: []
+  // }
 
-  componentDidMount() {
-    fetch(`${config.API_ENDPOINT}/language`, {
-      headers: {
-        'authorization': `Bearer ${TokenService.getAuthToken()}`,
-      }
-    })
-      .then(languageRes => {
-        if (!languageRes.ok) {
-          return languageRes.json()
-            .then(e => Promise.reject(e));
-        }
-        return languageRes.json();
-      })
-      .then(response => {
-        console.log(response);
-        this.setState({
-          userLanguage: response.language,
-          userWords: response.words
-        })
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
+  // componentDidMount() {
+  //   fetch(`${config.API_ENDPOINT}/language`, {
+  //     headers: {
+  //       'authorization': `Bearer ${TokenService.getAuthToken()}`,
+  //     }
+  //   })
+  //     .then(languageRes => {
+  //       if (!languageRes.ok) {
+  //         return languageRes.json()
+  //           .then(e => Promise.reject(e));
+  //       }
+  //       return languageRes.json();
+  //     })
+  //     .then(response => {
+  //       console.log(response);
+  //       this.setState({
+  //         userLanguage: response.language,
+  //         userWords: response.words
+  //       })
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }
 
 
 
 
   
   render() {
-    let options = this.state.userWords.map((word, index) => {
+    let options = this.props.state.userWords.map((word, index) => {
       return (
         <div key={index} className='wordComponent'>
           <li>
@@ -62,10 +62,10 @@ class DashboardRoute extends Component {
     return (
       <section>
         <div className='language'>
-          {(this.state.userLanguage.name) && (<h2>{this.state.userLanguage.name}</h2>)}
+          <h2>{this.props.state.userLanguage.name}</h2>
         </div>
         <div>
-          <p>Total correct answers: {this.state.userLanguage.total_score}</p>
+          <p>Total correct answers: {this.props.state.userLanguage.total_score}</p>
         </div>
         <div className='words'>
           <h3>Words to practice</h3>
