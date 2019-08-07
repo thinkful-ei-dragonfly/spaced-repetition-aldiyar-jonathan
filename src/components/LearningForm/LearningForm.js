@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Label, Required } from '../Form/Form'
+import { Input, Label} from '../Form/Form'
 import Button from '../Button/Button'
 import config from '../../config'
 import TokenService from '../../services/token-service';
@@ -25,7 +25,10 @@ export default class LearningForm extends React.Component {
     (!res.ok)
       ? res.json().then(err => Promise.reject(err))
       : res.json()
-  )
+    )
+      .then((res) => {
+      console.log(res)
+    })
 }
    
 
