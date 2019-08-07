@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import LearningForm from '../../components/LearningForm/LearningForm'
+import TestContext from '../../contexts/TestContext';
 
 class LearningRoute extends Component {
+  static contextType = TestContext;
   render() {
-    console.log(this.props)
     return (
       <main>
         <h2>Translate the word:</h2>
-        <span>{this.props.state.nextWord.nextWord}</span>
-        <p>Your total score is: {this.props.state.nextWord.totalScore}</p>
-        <LearningForm correct={this.props.state.nextWord.wordCorrectCount} incorrect={this.props.state.nextWord.wordIncorrectCount}/>
+        <span>{this.context.nextWord.nextWord}</span>
+        <p className='DisplayScore'>Your total score is: {this.context.nextWord.totalScore}</p>
+        <LearningForm/>
       </main>
     );
   }

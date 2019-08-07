@@ -3,3 +3,7 @@
 ***** CHECK COMPONENT DID MOUNT IN APP.JS so it populates info on first load
   ***CONTEXT??***
 
+  **** implement conditional render when given answer
+  **** still need to see what the state should look like
+  ****
+

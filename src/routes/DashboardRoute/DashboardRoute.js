@@ -2,10 +2,20 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../../components/Button/Button';
 import './DashboardRoute.css';
+import TestContext from '../../contexts/TestContext';
 
 class DashboardRoute extends Component {
+  static defaultProps = {
+    location: {},
+    history: {
+      push: () => { },
+    },
+  }
+
+  static contextType = TestContext;
+
   render() {
-    let options = this.props.state.userWords.map((word, index) => {
+    let options = this.context.userWords.map((word, index) => {
       return (
         <div key={index} className='wordComponent'>
           <li>
@@ -26,10 +36,10 @@ class DashboardRoute extends Component {
     return (
       <section>
         <div className='language'>
-          <h2>{this.props.state.userLanguage.name}</h2>
+          <h2>{this.context.userLanguage.name}</h2>
         </div>
         <div>
-          <p>Total correct answers: {this.props.state.userLanguage.total_score}</p>
+          <p>Total correct answers: {this.context.userLanguage.total_score}</p>
         </div>
         <div className='words'>
           <h3>Words to practice</h3>

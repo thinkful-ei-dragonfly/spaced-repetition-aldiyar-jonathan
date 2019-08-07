@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { UserProvider } from './contexts/UserContext'
+import { TestProvider } from './contexts/TestContext'
 import App from './components/App/App'
 import './setup-icons'
 import './index.css'
@@ -11,7 +12,9 @@ import * as serviceWorker from './serviceWorker'
 ReactDOM.render(
   <BrowserRouter>
     <UserProvider>
-      <App />
+      <TestProvider>
+        <App />
+      </TestProvider> 
     </UserProvider>
   </BrowserRouter>,
   document.getElementById('root'),

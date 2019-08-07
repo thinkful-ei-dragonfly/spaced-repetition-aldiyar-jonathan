@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import config from '../../config'
-import TokenService from '../../services/token-service'
 import Header from '../Header/Header'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute'
@@ -14,56 +12,10 @@ import './App.css'
 
 export default class App extends Component {
   state = {
-    userLanguage: {},
-    userWords: [],
-    nextWord: {},
     hasError: false
   }
 
-  componentDidMount() {
-    fetch(`${config.API_ENDPOINT}/language`, {
-      headers: {
-        'authorization': `Bearer ${TokenService.getAuthToken()}`,
-      }
-    })
-      .then(languageRes => {
-        if (!languageRes.ok) {
-          return languageRes.json()
-            .then(e => Promise.reject(e));
-        }
-        return languageRes.json();
-      })
-      .then(response => {
-        this.setState({
-          userLanguage: response.language,
-          userWords: response.words
-        })
-      })
-      .catch(error => {
-        console.error(error);
-      });
-      
-      fetch(`${config.API_ENDPOINT}/language/head`, {
-        headers: {
-          'authorization': `Bearer ${TokenService.getAuthToken()}`,
-        }
-      })
-      .then(nextWordRes => {
-        if(!nextWordRes.ok) {
-          return nextWordRes.json()
-          .then(e => Promise.reject(e))
-        }
-        return nextWordRes.json()
-      })
-      .then(nextWord => {
-        this.setState({
-          nextWord
-        })
-      })
-      .catch(error => {
-        console.error(error)
-      })
-  }
+
 
   static getDerivedStateFromError(error) {
     console.error(error)
@@ -83,11 +35,11 @@ export default class App extends Component {
             <PrivateRoute
               exact
               path={'/'}
-              component={() => <DashboardRoute state={this.state} />}
+              component={DashboardRoute}
             />
             <PrivateRoute
               path={'/learn'}
-              component={() => <LearningRoute state={this.state} />}
+              component={LearningRoute}
             />
             <PublicOnlyRoute
               path={'/register'}
