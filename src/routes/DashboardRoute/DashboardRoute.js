@@ -15,6 +15,8 @@ class DashboardRoute extends Component {
   static contextType = TestContext;
 
   render() {
+    console.log(this.context)
+
     let options = this.context.userWords.map((word, index) => {
       return (
         <div key={index} className='wordComponent'>

@@ -14,7 +14,6 @@ export class TestProvider extends Component {
       userLanguage: {},
       userWords: [],
       nextWord: {},
-      progress: {}
     }
 
     this.state = state;
@@ -65,18 +64,48 @@ export class TestProvider extends Component {
       })
   }
 
-  processAnswer = answer => {
+  updateState = response => {
     this.setState({
-      progress: answer
-  })
-}
+      nextWord: {...this.state.nextWord, totalScore: response.totalScore, wordCorrectCount: response.wordCorrectCount, wordIncorrectCount: response.wordIncorretCount}
+    })
+  }
 
+  updateTotalScore = () => {
+    fetch(`${config.API_ENDPOINT}/language`, {
+      headers: {
+        'authorization': `Bearer ${TokenService.getAuthToken()}`,
+      }
+    })
+      .then(languageRes => {
+        if (!languageRes.ok) {
+          return languageRes.json()
+            .then(e => Promise.reject(e));
+        }
+        return languageRes.json();
+      })
+      .then(response => {
+        this.setState({
+          userLanguage: response.language,
+          userWords: response.words
+        })
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  updateNextWord = (value) => { 
+    this.setState({
+      nextWord: {...this.state.nextWord, nextWord: value}
+    })
+  }
   render() {
     const value = {
       userLanguage: this.state.userLanguage,
       userWords: this.state.userWords,
       nextWord: this.state.nextWord,
-      setAnswer: this.setAnswer
+      updateState: this.updateState,
+      updateNextWord: this.updateNextWord
     }
     return (
       <TestContext.Provider value={value}>

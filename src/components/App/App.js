@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { TestProvider } from '../../contexts/TestContext'
 import Header from '../Header/Header'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute'
@@ -32,15 +33,26 @@ export default class App extends Component {
             <p>There was an error! Oh no!</p>
           )}
           <Switch>
-            <PrivateRoute
+              <PrivateRoute
               exact
               path={'/'}
-              component={DashboardRoute}
-            />
-            <PrivateRoute
-              path={'/learn'}
-              component={LearningRoute}
-            />
+              component={() => {
+                return (
+                  <TestProvider>
+                    <DashboardRoute />
+                  </TestProvider>
+                )
+              }} />
+              <PrivateRoute
+                path={'/learn'}
+              component={() => {
+                return (
+                  <TestProvider>
+                    <LearningRoute/>
+                  </TestProvider>
+                  )
+                }}
+              />
             <PublicOnlyRoute
               path={'/register'}
               component={RegistrationRoute}
