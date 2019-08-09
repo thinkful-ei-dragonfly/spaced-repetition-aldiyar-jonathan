@@ -28,7 +28,7 @@ export default class App extends Component {
     return (
       <div className='App'>
         <Header className='header' />
-        <main>
+        <main role='main'>
           {hasError && (
             <p>There was an error! Oh no!</p>
           )}

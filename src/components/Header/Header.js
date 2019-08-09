@@ -17,7 +17,7 @@ class Header extends Component {
         <span>
           {this.context.user.name}
         </span>
-        <nav>
+        <nav role='navigation'>
           <Link
             onClick={this.handleLogoutClick}
             to='/login'>
@@ -31,7 +31,7 @@ class Header extends Component {
   renderLoginLink() {
     return (
       <div className='nav'>
-        <nav>
+        <nav role='navigation'>
           <Link to='/login'>Login</Link>
           {' '}
           <Link to='/register'>Sign up</Link>
