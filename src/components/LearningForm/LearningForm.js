@@ -43,7 +43,7 @@ export default class LearningForm extends React.Component {
    
 
   handleChange = e => {
-    this.setState({ value: e.target.value })
+    this.setState({ value: e.target.value.toLowerCase() })
     console.log(this.state.value)
   }
 
