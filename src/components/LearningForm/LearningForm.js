@@ -125,7 +125,7 @@ export default class LearningForm extends React.Component {
   }
 
   render() {
-    console.log(this.context)
+    console.log(this.context.nextWord.wordIncorrectCount)
     return (
         <div className='form'>
         {(!this.state.answer && !this.state.isCorrect) && this.renderForm()}

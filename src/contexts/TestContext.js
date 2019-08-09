@@ -66,7 +66,7 @@ export class TestProvider extends Component {
 
   updateState = response => {
     this.setState({
-      nextWord: {...this.state.nextWord, totalScore: response.totalScore, wordCorrectCount: response.wordCorrectCount, wordIncorrectCount: response.wordIncorretCount}
+      nextWord: {...this.state.nextWord, totalScore: response.totalScore, wordCorrectCount: response.wordCorrectCount, wordIncorrectCount: response.wordIncorrectCount}
     })
   }
 
