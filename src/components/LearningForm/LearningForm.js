@@ -44,7 +44,6 @@ export default class LearningForm extends React.Component {
 
   handleChange = e => {
     this.setState({ value: e.target.value.toLowerCase() })
-    console.log(this.state.value)
   }
 
   handleNextClick = () => {
@@ -125,7 +124,6 @@ export default class LearningForm extends React.Component {
   }
 
   render() {
-    console.log(this.context.nextWord.wordIncorrectCount)
     return (
         <div className='form'>
         {(!this.state.answer && !this.state.isCorrect) && this.renderForm()}
